@@ -196,6 +196,10 @@ img {
   background: url("../images/backgrounds/scene-02-bg.png") center center / cover no-repeat;
 }
 
+.scene__bg--scene3 {
+  background: url("../images/backgrounds/scene-03-bg.png") center center / cover no-repeat;
+}
+
 .scene--hero .scene__bg--secondary {
   background: url("../images/backgrounds/scene-01-bg-b.png") center center / cover no-repeat;
   mix-blend-mode: soft-light;
