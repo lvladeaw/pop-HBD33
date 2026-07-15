@@ -1,14 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Romantic birthday story for Pop.">
   <title>Our Story</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E%E2%99%A1%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>Hello Pop ❤️</h1>
+  <div class="app-shell">
+    <aside class="scene-drawer" id="sceneDrawer" aria-hidden="true">
+      <div class="scene-drawer__card">
+        <div class="scene-drawer__header">
+          <p>Our Story</p>
+          <button class="icon-button" id="closeDrawerButton" type="button" aria-label="Close menu">×</button>
+        </div>
+        <div class="scene-drawer__tabs">
+          <button class="drawer-tab" data-target-scene="1" type="button">1. Birthday</button>
+          <button class="drawer-tab" data-target-scene="2" type="button">2. เดทแรกและทริปแรก</button>
+          <button class="drawer-tab" data-target-scene="3" type="button">3. อยุธยา</button>
+          <button class="drawer-tab" data-target-scene="4" type="button">4. Valentine</button>
+          <button class="drawer-tab" data-target-scene="5" type="button">5. เขาคิชฌกูฏ</button>
+          <button class="drawer-tab" data-target-scene="6" type="button">6. Outing</button>
+          <button class="drawer-tab" data-target-scene="7" type="button">7. Gallery</button>
+        </div>
+      </div>
+    </aside>
 
-  <script src="js/script.js"></script>
+    <header class="topbar">
+      <div class="topbar__left">
+        <button class="icon-button" id="openDrawerButton" type="button" aria-label="Open menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="brand-lockup">
+          <span class="brand-title">Our Story ♡</span>
+        </div>
+      </div>
+
+      <div class="topbar__right">
+        <button class="glass-button" id="musicToggle" type="button">
+          <span class="glass-button__icon">♪</span>
+          <span id="musicToggleLabel">เปิดเพลง</span>
+        </button>
+        <button class="glass-button" data-target-scene="7" type="button">
+          <span class="glass-button__icon">▣</span>
+          <span>Gallery</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="story-app" id="storyApp">
+      <section class="scene scene--active scene--hero" id="scene-1" data-scene="1" data-title="Birthday">
+        <div class="scene__bg scene__bg--single"></div>
+        <div class="scene__hero-overlay"></div>
+      </section>
+
+      <section class="scene scene--fullbg" id="scene-2" data-scene="2" data-title="เดทแรกและทริปแรก">
+        <div class="scene__bg scene__bg--scene2"></div>
+        <div class="scene__hero-overlay"></div>
+      </section>
+
+      <section class="scene" id="scene-3" data-scene="3" data-title="อยุธยา">
+        <div class="scene__backdrop scene__backdrop--peach"></div>
+        <div class="scene__content">
+          <div class="scene-card">
+            <p class="scene-card__eyebrow">Scene 3</p>
+            <h2>ปีใหม่ที่เราได้ทำบุญร่วมกัน</h2>
+            <p class="scene-card__lead">
+              การเริ่มต้นปีใหม่ด้วยกัน ไม่ได้มีแค่การเดินทาง แต่เป็นความทรงจำที่ดีมากอีกวันหนึ่งของเรา
+            </p>
+            <!-- EDIT SCENE 3 MESSAGE HERE -->
+            <p class="scene-card__placeholder">[ ใส่ข้อความเล่าเรื่องไปอยุธยาและทำบุญปีใหม่ตรงนี้ ]</p>
+            <div class="scene-photo-strip">
+              <img src="images/102069_0.jpg" alt="Placeholder scene 3 photo 1">
+              <img src="images/102070_0.jpg" alt="Placeholder scene 3 photo 2">
+              <img src="images/102071_0.jpg" alt="Placeholder scene 3 photo 3">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene" id="scene-4" data-scene="4" data-title="Valentine">
+        <div class="scene__backdrop scene__backdrop--rose"></div>
+        <div class="scene__content">
+          <div class="scene-card">
+            <p class="scene-card__eyebrow">Scene 4</p>
+            <h2>วันที่เราเปลี่ยนจากคำว่า “เรา” มาเป็นคำว่า “แฟนกัน”</h2>
+            <p class="scene-card__lead">
+              วาเลนไทน์ปีนั้น ไม่ได้เป็นเพียงวันแห่งความรัก แต่มันคือวันที่ความสัมพันธ์ของเราเริ่มชัดเจนขึ้น
+            </p>
+            <!-- EDIT SCENE 4 MESSAGE HERE -->
+            <p class="scene-card__placeholder">[ ใส่ข้อความบอกเล่าเรื่องวาเลนไทน์และวันที่ตกลงเป็นแฟนกันตรงนี้ ]</p>
+            <div class="scene-photo-grid scene-photo-grid--soft">
+              <img src="images/102072_0.jpg" alt="Placeholder scene 4 photo 1">
+              <img src="images/102073_0.jpg" alt="Placeholder scene 4 photo 2">
+              <img src="images/102074_0.jpg" alt="Placeholder scene 4 photo 3">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene" id="scene-5" data-scene="5" data-title="เขาคิชฌกูฏ">
+        <div class="scene__backdrop scene__backdrop--gold"></div>
+        <div class="scene__content">
+          <div class="scene-card">
+            <p class="scene-card__eyebrow">Scene 5</p>
+            <h2>การเดินทางที่เราได้ก้าวไปด้วยกัน</h2>
+            <p class="scene-card__lead">
+              เขาคิชฌกูฏไม่ใช่แค่สถานที่ที่เราไปทำบุญ แต่เป็นอีกครั้งที่เราได้เดินไปในเส้นทางเดียวกัน
+            </p>
+            <!-- EDIT SCENE 5 MESSAGE HERE -->
+            <p class="scene-card__placeholder">[ ใส่ข้อความเล่าเรื่องการขึ้นเขาคิชฌกูฏตรงนี้ ]</p>
+            <div class="scene-photo-strip scene-photo-strip--zoom">
+              <img src="images/102075_0.jpg" alt="Placeholder scene 5 photo 1">
+              <img src="images/102076_0.jpg" alt="Placeholder scene 5 photo 2">
+              <img src="images/102077_0.jpg" alt="Placeholder scene 5 photo 3">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene" id="scene-6" data-scene="6" data-title="Outing">
+        <div class="scene__backdrop scene__backdrop--paper"></div>
+        <div class="scene__content">
+          <div class="scene-card">
+            <p class="scene-card__eyebrow">Scene 6</p>
+            <h2>วันที่พี่ได้เข้าไปอยู่ในอีกมุมหนึ่งของโลกของป๊อป</h2>
+            <p class="scene-card__lead">
+              การได้ไป Outing ด้วยกัน ทำให้เราได้มีความทรงจำใหม่ ๆ เพิ่มขึ้นอีกมากมาย
+            </p>
+            <!-- EDIT SCENE 6 MESSAGE HERE -->
+            <p class="scene-card__placeholder">[ ใส่ข้อความเล่าเรื่องการไป Outing ที่บริษัทป๊อปตรงนี้ ]</p>
+            <div class="polaroid-stack">
+              <figure class="mini-polaroid">
+                <img src="images/102078_0.jpg" alt="Placeholder scene 6 photo 1">
+                <figcaption>Outing 01</figcaption>
+              </figure>
+              <figure class="mini-polaroid">
+                <img src="images/102079_0.jpg" alt="Placeholder scene 6 photo 2">
+                <figcaption>Outing 02</figcaption>
+              </figure>
+              <figure class="mini-polaroid">
+                <img src="images/102080_0.jpg" alt="Placeholder scene 6 photo 3">
+                <figcaption>Outing 03</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene scene--gallery" id="scene-7" data-scene="7" data-title="Gallery">
+        <div class="scene__backdrop scene__backdrop--gallery"></div>
+        <div class="scene__content">
+          <div class="scene-card scene-card--gallery">
+            <p class="scene-card__eyebrow">Scene 7</p>
+            <h2>Gallery ของเรา</h2>
+            <p class="scene-card__lead">
+              หน้านี้เตรียมโครงไว้ก่อนแล้ว เดี๋ยวคุณส่งภาพพื้นหลังของหน้า 7 มาเพิ่มเมื่อพร้อมได้เลย
+            </p>
+            <div class="gallery-grid" id="galleryGrid"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="nav-button nav-button--circle" id="prevButton" type="button" aria-label="Previous scene">‹</button>
+      <div class="scene-status">
+        <p class="scene-status__counter"><span id="currentSceneNumber">1</span> / 7</p>
+        <p class="scene-status__label" id="currentSceneLabel">ฉากที่ 1</p>
+      </div>
+      <button class="nav-button nav-button--circle" id="nextButton" type="button" aria-label="Next scene">›</button>
+    </nav>
+  </div>
+
+  <script src="js/gallery-data.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
