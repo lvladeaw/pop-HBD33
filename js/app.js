@@ -24,6 +24,7 @@ const lightboxNext = document.getElementById("lightboxNext");
 const lightboxImage = document.getElementById("lightboxImage");
 const drawerTabs = Array.from(document.querySelectorAll(".drawer-tab"));
 const directSceneButtons = Array.from(document.querySelectorAll("[data-target-scene]"));
+const sparkleScenes = scenes.filter((scene) => Number(scene.dataset.scene) <= 6);
 
 let activeScene = 1;
 let touchStartX = 0;
@@ -83,6 +84,52 @@ function openDrawer() {
 function closeDrawer() {
   sceneDrawer.classList.remove("is-open");
   sceneDrawer.setAttribute("aria-hidden", "true");
+}
+
+function createSparkle() {
+  const sparkle = document.createElement("span");
+  const core = document.createElement("span");
+  const size = 8 + Math.random() * 18;
+  const opacity = 0.16 + Math.random() * 0.26;
+  const duration = 3.8 + Math.random() * 3.4;
+  const driftDuration = 9 + Math.random() * 8;
+  const shiftX = `${(Math.random() * 18 - 9).toFixed(2)}px`;
+  const shiftY = `${(Math.random() * 18 - 9).toFixed(2)}px`;
+
+  sparkle.className = "sparkle";
+  sparkle.style.left = `${(Math.random() * 100).toFixed(2)}%`;
+  sparkle.style.top = `${(Math.random() * 100).toFixed(2)}%`;
+  sparkle.style.setProperty("--sparkle-size", `${size.toFixed(2)}px`);
+  sparkle.style.setProperty("--sparkle-opacity", opacity.toFixed(2));
+  sparkle.style.setProperty("--sparkle-duration", `${duration.toFixed(2)}s`);
+  sparkle.style.setProperty("--sparkle-drift-duration", `${driftDuration.toFixed(2)}s`);
+  sparkle.style.setProperty("--sparkle-delay", `${(-Math.random() * duration).toFixed(2)}s`);
+  sparkle.style.setProperty("--sparkle-shift-x", shiftX);
+  sparkle.style.setProperty("--sparkle-shift-y", shiftY);
+
+  core.className = "sparkle__core";
+  sparkle.appendChild(core);
+
+  return sparkle;
+}
+
+function renderSparkles() {
+  sparkleScenes.forEach((scene) => {
+    const existingLayer = scene.querySelector(".sparkle-layer");
+    if (existingLayer) {
+      existingLayer.remove();
+    }
+
+    const layer = document.createElement("div");
+    layer.className = "sparkle-layer";
+
+    const sparkleCount = window.innerWidth <= 640 ? 16 : 24;
+    for (let index = 0; index < sparkleCount; index += 1) {
+      layer.appendChild(createSparkle());
+    }
+
+    scene.appendChild(layer);
+  });
 }
 
 function updateMusicButtonLabel() {
@@ -337,8 +384,10 @@ document.addEventListener("pointerdown", ensureAudioAfterInteraction, { once: tr
 document.addEventListener("keydown", ensureAudioAfterInteraction, { once: true });
 
 window.addEventListener("hashchange", syncFromHash);
+window.addEventListener("resize", renderSparkles);
 
 renderGallery();
+renderSparkles();
 setTrack(0, false);
 tryAutoplayDefaultTrack();
 syncFromHash();
