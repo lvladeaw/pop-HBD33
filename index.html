@@ -22,10 +22,10 @@
         <div class="scene-drawer__tabs">
           <button class="drawer-tab" data-target-scene="1" type="button">1. Birthday</button>
           <button class="drawer-tab" data-target-scene="2" type="button">2. เดทแรกและทริปแรก</button>
-          <button class="drawer-tab" data-target-scene="3" type="button">3. อยุธยา</button>
-          <button class="drawer-tab" data-target-scene="4" type="button">4. Valentine</button>
-          <button class="drawer-tab" data-target-scene="5" type="button">5. เขาคิชฌกูฏ</button>
-          <button class="drawer-tab" data-target-scene="6" type="button">6. Outing</button>
+          <button class="drawer-tab" data-target-scene="3" type="button">3. วาเลนไทน์ 2569</button>
+          <button class="drawer-tab" data-target-scene="4" type="button">4. ทริปเขาคิชฌกูฎ</button>
+          <button class="drawer-tab" data-target-scene="5" type="button">5. ใช้เวลาด้วยกัน</button>
+          <button class="drawer-tab" data-target-scene="6" type="button">6. ดูหนังเวลาของครอบครัว</button>
           <button class="drawer-tab" data-target-scene="7" type="button">7. Gallery</button>
         </div>
       </div>
@@ -44,9 +44,9 @@
       </div>
 
       <div class="topbar__right">
-        <button class="glass-button" id="musicToggle" type="button">
+        <button class="glass-button" id="musicToggle" type="button" aria-haspopup="true" aria-expanded="false">
           <span class="glass-button__icon">♪</span>
-          <span id="musicToggleLabel">เปิดเพลง</span>
+          <span id="musicToggleLabel">Sound</span>
         </button>
         <button class="glass-button" data-target-scene="7" type="button">
           <span class="glass-button__icon">▣</span>
@@ -54,6 +54,30 @@
         </button>
       </div>
     </header>
+
+    <section class="music-panel" id="musicPanel" aria-hidden="true">
+      <div class="music-panel__card">
+        <div class="music-panel__top">
+          <p class="music-panel__title">Soundtrack</p>
+          <button class="music-panel__close" id="musicPanelClose" type="button" aria-label="Close soundtrack panel">×</button>
+        </div>
+        <label class="music-panel__field">
+          <span>Choose song</span>
+          <select id="trackSelect">
+            <option value="0">Happy Birthday</option>
+            <option value="1">Best Gift</option>
+          </select>
+        </label>
+        <label class="music-panel__field">
+          <span>Volume</span>
+          <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="0.18">
+        </label>
+        <div class="music-panel__actions">
+          <button class="music-action-button" id="playPauseButton" type="button">Pause</button>
+          <button class="music-action-button music-action-button--ghost" id="nextTrackButton" type="button">Next Song</button>
+        </div>
+      </div>
+    </section>
 
     <main class="story-app" id="storyApp">
       <section class="scene scene--active scene--hero" id="scene-1" data-scene="1" data-title="Birthday">
@@ -71,84 +95,26 @@
         <div class="scene__hero-overlay"></div>
       </section>
 
-      <section class="scene" id="scene-4" data-scene="4" data-title="Valentine">
-        <div class="scene__backdrop scene__backdrop--rose"></div>
-        <div class="scene__content">
-          <div class="scene-card">
-            <p class="scene-card__eyebrow">Scene 4</p>
-            <h2>วันที่เราเปลี่ยนจากคำว่า “เรา” มาเป็นคำว่า “แฟนกัน”</h2>
-            <p class="scene-card__lead">
-              วาเลนไทน์ปีนั้น ไม่ได้เป็นเพียงวันแห่งความรัก แต่มันคือวันที่ความสัมพันธ์ของเราเริ่มชัดเจนขึ้น
-            </p>
-            <!-- EDIT SCENE 4 MESSAGE HERE -->
-            <p class="scene-card__placeholder">[ ใส่ข้อความบอกเล่าเรื่องวาเลนไทน์และวันที่ตกลงเป็นแฟนกันตรงนี้ ]</p>
-            <div class="scene-photo-grid scene-photo-grid--soft">
-              <img src="images/102072_0.jpg" alt="Placeholder scene 4 photo 1">
-              <img src="images/102073_0.jpg" alt="Placeholder scene 4 photo 2">
-              <img src="images/102074_0.jpg" alt="Placeholder scene 4 photo 3">
-            </div>
-          </div>
-        </div>
+      <section class="scene scene--fullbg" id="scene-4" data-scene="4" data-title="ทริปเขาคิชฌกูฎ">
+        <div class="scene__bg scene__bg--scene4"></div>
+        <div class="scene__hero-overlay"></div>
       </section>
 
-      <section class="scene" id="scene-5" data-scene="5" data-title="เขาคิชฌกูฏ">
-        <div class="scene__backdrop scene__backdrop--gold"></div>
-        <div class="scene__content">
-          <div class="scene-card">
-            <p class="scene-card__eyebrow">Scene 5</p>
-            <h2>การเดินทางที่เราได้ก้าวไปด้วยกัน</h2>
-            <p class="scene-card__lead">
-              เขาคิชฌกูฏไม่ใช่แค่สถานที่ที่เราไปทำบุญ แต่เป็นอีกครั้งที่เราได้เดินไปในเส้นทางเดียวกัน
-            </p>
-            <!-- EDIT SCENE 5 MESSAGE HERE -->
-            <p class="scene-card__placeholder">[ ใส่ข้อความเล่าเรื่องการขึ้นเขาคิชฌกูฏตรงนี้ ]</p>
-            <div class="scene-photo-strip scene-photo-strip--zoom">
-              <img src="images/102075_0.jpg" alt="Placeholder scene 5 photo 1">
-              <img src="images/102076_0.jpg" alt="Placeholder scene 5 photo 2">
-              <img src="images/102077_0.jpg" alt="Placeholder scene 5 photo 3">
-            </div>
-          </div>
-        </div>
+      <section class="scene scene--fullbg" id="scene-5" data-scene="5" data-title="ใช้เวลาด้วยกัน">
+        <div class="scene__bg scene__bg--scene5"></div>
+        <div class="scene__hero-overlay"></div>
       </section>
 
-      <section class="scene" id="scene-6" data-scene="6" data-title="Outing">
-        <div class="scene__backdrop scene__backdrop--paper"></div>
-        <div class="scene__content">
-          <div class="scene-card">
-            <p class="scene-card__eyebrow">Scene 6</p>
-            <h2>วันที่พี่ได้เข้าไปอยู่ในอีกมุมหนึ่งของโลกของป๊อป</h2>
-            <p class="scene-card__lead">
-              การได้ไป Outing ด้วยกัน ทำให้เราได้มีความทรงจำใหม่ ๆ เพิ่มขึ้นอีกมากมาย
-            </p>
-            <!-- EDIT SCENE 6 MESSAGE HERE -->
-            <p class="scene-card__placeholder">[ ใส่ข้อความเล่าเรื่องการไป Outing ที่บริษัทป๊อปตรงนี้ ]</p>
-            <div class="polaroid-stack">
-              <figure class="mini-polaroid">
-                <img src="images/102078_0.jpg" alt="Placeholder scene 6 photo 1">
-                <figcaption>Outing 01</figcaption>
-              </figure>
-              <figure class="mini-polaroid">
-                <img src="images/102079_0.jpg" alt="Placeholder scene 6 photo 2">
-                <figcaption>Outing 02</figcaption>
-              </figure>
-              <figure class="mini-polaroid">
-                <img src="images/102080_0.jpg" alt="Placeholder scene 6 photo 3">
-                <figcaption>Outing 03</figcaption>
-              </figure>
-            </div>
-          </div>
-        </div>
+      <section class="scene scene--fullbg" id="scene-6" data-scene="6" data-title="ดูหนังเวลาของครอบครัว">
+        <div class="scene__bg scene__bg--scene6"></div>
+        <div class="scene__hero-overlay"></div>
       </section>
 
       <section class="scene scene--gallery" id="scene-7" data-scene="7" data-title="Gallery">
         <div class="scene__backdrop scene__backdrop--gallery"></div>
         <div class="scene__content">
           <div class="scene-card scene-card--gallery">
-            <p class="scene-card__eyebrow">Scene 7</p>
             <h2>Gallery ของเรา</h2>
-            <p class="scene-card__lead">
-              หน้านี้เตรียมโครงไว้ก่อนแล้ว เดี๋ยวคุณส่งภาพพื้นหลังของหน้า 7 มาเพิ่มเมื่อพร้อมได้เลย
-            </p>
             <div class="gallery-grid" id="galleryGrid"></div>
           </div>
         </div>
@@ -159,11 +125,22 @@
       <button class="nav-button nav-button--circle" id="prevButton" type="button" aria-label="Previous scene">‹</button>
       <div class="scene-status">
         <p class="scene-status__counter"><span id="currentSceneNumber">1</span> / 7</p>
-        <p class="scene-status__label" id="currentSceneLabel">ฉากที่ 1</p>
       </div>
       <button class="nav-button nav-button--circle" id="nextButton" type="button" aria-label="Next scene">›</button>
     </nav>
   </div>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__backdrop" id="lightboxBackdrop" type="button" aria-label="Close image preview"></button>
+    <div class="lightbox__dialog" role="dialog" aria-modal="true" aria-label="Gallery image preview">
+      <button class="lightbox__close" id="lightboxClose" type="button" aria-label="Close image preview">×</button>
+      <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" type="button" aria-label="Previous image">‹</button>
+      <img id="lightboxImage" src="" alt="Gallery image preview">
+      <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" type="button" aria-label="Next image">›</button>
+    </div>
+  </div>
+
+  <audio id="storyAudio" preload="auto"></audio>
 
   <script src="js/gallery-data.js"></script>
   <script src="js/app.js"></script>

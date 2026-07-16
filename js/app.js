@@ -3,23 +3,42 @@ const scenes = Array.from(document.querySelectorAll(".scene"));
 const prevButton = document.getElementById("prevButton");
 const nextButton = document.getElementById("nextButton");
 const currentSceneNumber = document.getElementById("currentSceneNumber");
-const currentSceneLabel = document.getElementById("currentSceneLabel");
 const sceneDrawer = document.getElementById("sceneDrawer");
 const openDrawerButton = document.getElementById("openDrawerButton");
 const closeDrawerButton = document.getElementById("closeDrawerButton");
 const musicToggle = document.getElementById("musicToggle");
 const musicToggleLabel = document.getElementById("musicToggleLabel");
+const musicPanel = document.getElementById("musicPanel");
+const musicPanelClose = document.getElementById("musicPanelClose");
+const trackSelect = document.getElementById("trackSelect");
+const volumeSlider = document.getElementById("volumeSlider");
+const playPauseButton = document.getElementById("playPauseButton");
+const nextTrackButton = document.getElementById("nextTrackButton");
+const storyAudio = document.getElementById("storyAudio");
 const galleryGrid = document.getElementById("galleryGrid");
+const lightbox = document.getElementById("lightbox");
+const lightboxBackdrop = document.getElementById("lightboxBackdrop");
+const lightboxClose = document.getElementById("lightboxClose");
+const lightboxPrev = document.getElementById("lightboxPrev");
+const lightboxNext = document.getElementById("lightboxNext");
+const lightboxImage = document.getElementById("lightboxImage");
 const drawerTabs = Array.from(document.querySelectorAll(".drawer-tab"));
 const directSceneButtons = Array.from(document.querySelectorAll("[data-target-scene]"));
 
 let activeScene = 1;
-let isMusicEnabled = false;
 let touchStartX = 0;
+let activeGalleryIndex = 0;
+let isMusicPanelOpen = false;
+let currentTrackIndex = 0;
+let userHasInteractedWithAudio = false;
+
+const playlist = [
+  { src: "music/happy-birthday.mp3", label: "Happy Birthday" },
+  { src: "music/best-gift.mp3", label: "Best Gift" }
+];
 
 function updateControls() {
   currentSceneNumber.textContent = String(activeScene);
-  currentSceneLabel.textContent = `ฉากที่ ${activeScene}`;
   prevButton.disabled = activeScene === 1;
 
   drawerTabs.forEach((tab) => {
@@ -66,22 +85,130 @@ function closeDrawer() {
   sceneDrawer.setAttribute("aria-hidden", "true");
 }
 
+function updateMusicButtonLabel() {
+  const currentTrack = playlist[currentTrackIndex];
+  const suffix = storyAudio.paused ? "Paused" : currentTrack.label;
+  musicToggleLabel.textContent = suffix;
+  playPauseButton.textContent = storyAudio.paused ? "Play" : "Pause";
+}
+
+function openMusicPanel() {
+  isMusicPanelOpen = true;
+  musicPanel.classList.add("is-open");
+  musicPanel.setAttribute("aria-hidden", "false");
+  musicToggle.setAttribute("aria-expanded", "true");
+}
+
+function closeMusicPanel() {
+  isMusicPanelOpen = false;
+  musicPanel.classList.remove("is-open");
+  musicPanel.setAttribute("aria-hidden", "true");
+  musicToggle.setAttribute("aria-expanded", "false");
+}
+
+function setTrack(index, shouldPlay = true) {
+  const safeIndex = (index + playlist.length) % playlist.length;
+  currentTrackIndex = safeIndex;
+  storyAudio.src = playlist[safeIndex].src;
+  trackSelect.value = String(safeIndex);
+  storyAudio.volume = Number(volumeSlider.value);
+
+  if (shouldPlay) {
+    storyAudio.play().then(() => {
+      updateMusicButtonLabel();
+    }).catch(() => {
+      updateMusicButtonLabel();
+    });
+    return;
+  }
+
+  updateMusicButtonLabel();
+}
+
+function togglePlayback() {
+  userHasInteractedWithAudio = true;
+
+  if (storyAudio.paused) {
+    storyAudio.play().then(() => {
+      updateMusicButtonLabel();
+    }).catch(() => {
+      updateMusicButtonLabel();
+    });
+    return;
+  }
+
+  storyAudio.pause();
+  updateMusicButtonLabel();
+}
+
+function playNextTrack() {
+  userHasInteractedWithAudio = true;
+  setTrack(currentTrackIndex + 1, true);
+}
+
+function tryAutoplayDefaultTrack() {
+  storyAudio.volume = Number(volumeSlider.value);
+  setTrack(0, true);
+}
+
+function ensureAudioAfterInteraction() {
+  if (userHasInteractedWithAudio || !storyAudio.paused) {
+    return;
+  }
+
+  userHasInteractedWithAudio = true;
+  storyAudio.play().then(() => {
+    updateMusicButtonLabel();
+  }).catch(() => {
+    updateMusicButtonLabel();
+  });
+}
+
 function renderGallery() {
   galleryGrid.innerHTML = "";
 
-  galleryItems.forEach((item) => {
-    const figure = document.createElement("figure");
+  galleryItems.forEach((item, index) => {
+    const button = document.createElement("button");
     const image = document.createElement("img");
-    const caption = document.createElement("figcaption");
 
     image.src = item.src;
-    image.alt = item.title;
+    image.alt = item.alt;
     image.loading = "lazy";
-    caption.textContent = item.title;
 
-    figure.append(image, caption);
-    galleryGrid.appendChild(figure);
+    button.type = "button";
+    button.setAttribute("aria-label", `Open gallery image ${index + 1}`);
+    button.addEventListener("click", () => openLightbox(index));
+    button.appendChild(image);
+    galleryGrid.appendChild(button);
   });
+}
+
+function showLightboxImage(index) {
+  const safeIndex = (index + galleryItems.length) % galleryItems.length;
+  activeGalleryIndex = safeIndex;
+  lightboxImage.src = galleryItems[safeIndex].src;
+  lightboxImage.alt = galleryItems[safeIndex].alt;
+}
+
+function openLightbox(index) {
+  showLightboxImage(index);
+  lightbox.classList.add("is-open");
+  lightbox.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closeLightbox() {
+  lightbox.classList.remove("is-open");
+  lightbox.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+function showNextLightboxImage() {
+  showLightboxImage(activeGalleryIndex + 1);
+}
+
+function showPreviousLightboxImage() {
+  showLightboxImage(activeGalleryIndex - 1);
 }
 
 function syncFromHash() {
@@ -112,11 +239,50 @@ directSceneButtons.forEach((button) => {
 });
 
 musicToggle.addEventListener("click", () => {
-  isMusicEnabled = !isMusicEnabled;
-  musicToggleLabel.textContent = isMusicEnabled ? "ปิดเพลง" : "เปิดเพลง";
+  if (isMusicPanelOpen) {
+    closeMusicPanel();
+    return;
+  }
+
+  openMusicPanel();
 });
 
+musicPanelClose.addEventListener("click", closeMusicPanel);
+trackSelect.addEventListener("change", () => {
+  userHasInteractedWithAudio = true;
+  setTrack(Number(trackSelect.value), true);
+});
+volumeSlider.addEventListener("input", () => {
+  storyAudio.volume = Number(volumeSlider.value);
+});
+playPauseButton.addEventListener("click", togglePlayback);
+nextTrackButton.addEventListener("click", playNextTrack);
+storyAudio.addEventListener("ended", () => {
+  setTrack(currentTrackIndex + 1, true);
+});
+
+lightboxBackdrop.addEventListener("click", closeLightbox);
+lightboxClose.addEventListener("click", closeLightbox);
+lightboxNext.addEventListener("click", showNextLightboxImage);
+lightboxPrev.addEventListener("click", showPreviousLightboxImage);
+
 document.addEventListener("keydown", (event) => {
+  if (lightbox.classList.contains("is-open")) {
+    if (event.key === "ArrowRight") {
+      showNextLightboxImage();
+    }
+
+    if (event.key === "ArrowLeft") {
+      showPreviousLightboxImage();
+    }
+
+    if (event.key === "Escape") {
+      closeLightbox();
+    }
+
+    return;
+  }
+
   if (event.key === "ArrowRight") {
     goNext();
   }
@@ -126,6 +292,7 @@ document.addEventListener("keydown", (event) => {
   }
 
   if (event.key === "Escape") {
+    closeMusicPanel();
     closeDrawer();
   }
 });
@@ -135,6 +302,23 @@ document.addEventListener("touchstart", (event) => {
 }, { passive: true });
 
 document.addEventListener("touchend", (event) => {
+  if (lightbox.classList.contains("is-open")) {
+    const touchEndX = event.changedTouches[0].screenX;
+    const deltaX = touchEndX - touchStartX;
+
+    if (Math.abs(deltaX) < 60) {
+      return;
+    }
+
+    if (deltaX < 0) {
+      showNextLightboxImage();
+    } else {
+      showPreviousLightboxImage();
+    }
+
+    return;
+  }
+
   const touchEndX = event.changedTouches[0].screenX;
   const deltaX = touchEndX - touchStartX;
 
@@ -149,7 +333,12 @@ document.addEventListener("touchend", (event) => {
   }
 }, { passive: true });
 
+document.addEventListener("pointerdown", ensureAudioAfterInteraction, { once: true });
+document.addEventListener("keydown", ensureAudioAfterInteraction, { once: true });
+
 window.addEventListener("hashchange", syncFromHash);
 
 renderGallery();
+setTrack(0, false);
+tryAutoplayDefaultTrack();
 syncFromHash();
