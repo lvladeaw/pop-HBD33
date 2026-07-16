@@ -271,7 +271,8 @@ img {
 
 .scene__bg,
 .scene__veil,
-.scene__backdrop {
+.scene__backdrop,
+.scene__image {
   position: absolute;
   inset: 0;
 }
@@ -288,27 +289,67 @@ img {
 }
 
 .scene--hero .scene__bg--single {
-  background: url("../images/backgrounds/scene-01-bg-b.png") center top / contain no-repeat;
+  background: url("../images/backgrounds/scene-01-bg-b.png") center center / cover no-repeat;
 }
 
 .scene__bg--scene2 {
-  background: url("../images/backgrounds/scene-02-bg.png") center top / contain no-repeat;
+  background: url("../images/backgrounds/scene-02-bg.png") center center / cover no-repeat;
 }
 
 .scene__bg--scene3 {
-  background: url("../images/backgrounds/scene-03-bg.png") center top / contain no-repeat;
+  background: url("../images/backgrounds/scene-03-bg.png") center center / cover no-repeat;
 }
 
 .scene__bg--scene4 {
-  background: url("../images/backgrounds/scene-04-bg.png") center top / contain no-repeat;
+  background: url("../images/backgrounds/scene-04-bg.png") center center / cover no-repeat;
 }
 
 .scene__bg--scene5 {
-  background: url("../images/backgrounds/scene-05-bg.png") center top / contain no-repeat;
+  background: url("../images/backgrounds/scene-05-bg.png") center center / cover no-repeat;
 }
 
 .scene__bg--scene6 {
-  background: url("../images/backgrounds/scene-06-bg.png") center top / contain no-repeat;
+  background: url("../images/backgrounds/scene-06-bg.png") center center / cover no-repeat;
+}
+
+.scene__bg {
+  transform: scale(1.3);
+  filter: blur(28px);
+  opacity: 0.72;
+}
+
+.scene__image {
+  inset: 5px;
+  z-index: 2;
+  border-radius: 32px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  box-shadow: 0 18px 42px rgba(73, 38, 29, 0.28);
+}
+
+.scene__image--scene1 {
+  background-image: url("../images/backgrounds/scene-01-bg-b.png");
+}
+
+.scene__image--scene2 {
+  background-image: url("../images/backgrounds/scene-02-bg.png");
+}
+
+.scene__image--scene3 {
+  background-image: url("../images/backgrounds/scene-03-bg.png");
+}
+
+.scene__image--scene4 {
+  background-image: url("../images/backgrounds/scene-04-bg.png");
+}
+
+.scene__image--scene5 {
+  background-image: url("../images/backgrounds/scene-05-bg.png");
+}
+
+.scene__image--scene6 {
+  background-image: url("../images/backgrounds/scene-06-bg.png");
 }
 
 .scene--hero .scene__bg--secondary {
@@ -326,7 +367,8 @@ img {
 .scene__hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(255, 247, 240, 0.06), rgba(112, 71, 55, 0.08));
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(255, 247, 240, 0.14), rgba(112, 71, 55, 0.12));
   pointer-events: none;
 }
 
@@ -750,14 +792,8 @@ img {
     padding: 92px 0 170px;
   }
 
-  .scene--hero .scene__bg--single,
-  .scene__bg--scene2,
-  .scene__bg--scene3,
-  .scene__bg--scene4,
-  .scene__bg--scene5,
-  .scene__bg--scene6 {
-    background-position: center top;
-    background-size: 100% auto;
+  .scene__image {
+    inset: 5px;
   }
 
   .hero-copy h1 {
@@ -816,13 +852,8 @@ img {
     font-size: 1.9rem;
   }
 
-  .scene--hero .scene__bg--single,
-  .scene__bg--scene2,
-  .scene__bg--scene3,
-  .scene__bg--scene4,
-  .scene__bg--scene5,
-  .scene__bg--scene6 {
-    background-size: 100% auto;
+  .scene__image {
+    border-radius: 26px;
   }
 
   .gallery-grid {
@@ -869,13 +900,7 @@ img {
 }
 
 @media (min-aspect-ratio: 10 / 16) {
-  .scene--hero .scene__bg--single,
-  .scene__bg--scene2,
-  .scene__bg--scene3,
-  .scene__bg--scene4,
-  .scene__bg--scene5,
-  .scene__bg--scene6 {
-    background-position: center center;
-    background-size: auto 100%;
+  .scene__image {
+    background-size: contain;
   }
 }
